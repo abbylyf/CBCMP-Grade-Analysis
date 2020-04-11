@@ -1,0 +1,50 @@
+---
+title: "analysis of my grade"
+author: "Abby Lin"
+date: "11/04/2020"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r libraries}
+library(dplyr)
+library(readr)
+```
+
+## import csv file
+
+```{r csv import}
+grades <- read.csv("grades.csv")
+grades
+```
+
+## add subject GPA column
+```{r sub_gpa}
+grades.s <- grades%>%
+  filter(grade.in.words == "S")%>%
+  mutate(sub_gpa = 4)
+grades.a <- grades%>%
+  filter(grade.in.words == "A")%>%
+  mutate(sub_gpa = 3)
+grades <- grades.s%>%
+  bind_rows(grades.a)
+```
+
+## add total gpa column
+
+```{r tol_gpa}
+grades <- grades%>%
+  mutate(tol_gpa = sub_gpa * Credits)
+grades
+```
+## calculate average gpa
+
+```{r average gpa}
+total_points <- sum(grades$tol_gpa)
+total_credits <- sum(grades$Credits)
+average_gpa <- total_points / total_credits
+
+print(paste0("My average GPA up til now is: ", average_gpa))
+```
