@@ -3,9 +3,7 @@ title: "analysis of my grade"
 author: "Abby Lin"
 date: "11/04/2020"
 output:
-  pdf_document: default
-  html_document:
-    df_print: paged
+  md_document: default
 ---
 
 ```{r libraries}
@@ -13,14 +11,14 @@ library(dplyr)
 library(readr)
 ```
 
-## import csv file
+import csv file
 
 ```{r csv import}
 grades <- read.csv("grades.csv")
-grades
+head(grades)
 ```
 
-## add subject GPA column
+add subject GPA column
 ```{r sub_gpa}
 grades.s <- grades%>%
   filter(grade.in.words == "S")%>%
@@ -32,14 +30,14 @@ grades <- grades.s%>%
   bind_rows(grades.a)
 ```
 
-## add total gpa column
+add total gpa column
 
 ```{r tol_gpa}
 grades <- grades%>%
   mutate(tol_gpa = sub_gpa * Credits)
-grades
+head(grades)
 ```
-## calculate average gpa
+calculate average gpa
 
 ```{r average gpa}
 total_points <- sum(grades$tol_gpa)
