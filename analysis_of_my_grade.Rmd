@@ -8,6 +8,7 @@ output:
 
 ```{r libraries}
 library(dplyr)
+library(tidyverse)
 library(readr)
 ```
 
@@ -34,7 +35,11 @@ add total gpa column
 
 ```{r tol_gpa}
 grades <- grades%>%
-  mutate(tol_gpa = sub_gpa * Credits)
+  mutate(tol_gpa = sub_gpa * Credits)%>%
+  select(-"Course.Sub.category", -"Course.Name", -"Year.Completed", -"Semester.Completed")%>%
+  rbind(list(2,'S',4,8))%>%
+  rbind(list(2,'S',4,8))%>%
+  rbind(list(6,'B',2,12))
 head(grades)
 ```
 calculate average gpa

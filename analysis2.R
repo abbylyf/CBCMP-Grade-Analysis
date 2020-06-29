@@ -16,4 +16,5 @@ grades <- select(grades, Course.Sub.category, sub_gpa)
 
 head(grades)
 
-boxplot(sub_gpa~Course.Sub.category, data = grades)
+#boxplot(sub_gpa~Course.Sub.category, data = grades)
+
